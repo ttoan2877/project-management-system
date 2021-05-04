@@ -1,0 +1,19 @@
+{
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "semi": false,
+  "overrides": [
+    {
+      "files": [
+        "*.tsx",
+        "*.ts"
+      ],
+      "options": {
+        "parser": "babel-ts"
+      }
+    }
+  ],
+  "arrowParens": "avoid"
+}

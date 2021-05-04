@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "lib": ["es6", "es2015", "dom"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["app/*"],
+      "assets/*": ["app/assets/*"],
+      "components/*": ["app/components/*"],
+      "config/*": ["app/config/*"],
+      "lib/*": ["app/lib/*"],
+      "models/*": ["app/models/*"],
+      "navigation/*": ["app/navigation/*"],
+      "screens/*": ["app/screens/*"],
+      "services/*": ["app/services/*"],
+      "store/*": ["app/store/*"],
+      "utils/*": ["app/utils/*"]
+    },
+    "typeRoots": ["app/Types/library", "./node_modules/@types"]
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
+}

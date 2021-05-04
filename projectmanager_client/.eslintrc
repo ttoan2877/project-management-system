@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "plugins": ["react", "react-hooks"],
+  "extends": ["prettier"],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    },
+    "sourceType": "module"
+  }
+}
