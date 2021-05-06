@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 const RecentTask = () => {
   return (
     <View>
-      <Text></Text>
+      <Text>RecentTask</Text>
     </View>
   )
 }

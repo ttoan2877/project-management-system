@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, Fragment } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Form from 'components/Form'
 import SecondaryLayout from 'components/SecondaryLayout'
@@ -23,11 +23,6 @@ const CreateProject = () => {
   const { isLoading } = useSelector(getProjectState)
   const dispatch = useDispatch()
   const [data, setData] = useState<any>({})
-  console.log(isLoading)
-
-  // useEffect(() => {
-  //   dispatch(logout())
-  // }, [dispatch])
 
   const onSubmit = useCallback(() => {
     dispatch(createProject(data))
@@ -39,9 +34,11 @@ const CreateProject = () => {
         title="Create new project"
         onPressFooterButton={onSubmit}
         footerButtonLabel="Create project">
-        <Form fields={FIELDS} data={data} onChangeData={setData} />
+        <Fragment>
+          <Form fields={FIELDS} data={data} onChangeData={setData} />
+          <Loading isLoading={isLoading} />
+        </Fragment>
       </SecondaryLayout>
-      <Loading isLoading={isLoading} />
     </>
   )
 }

@@ -6,7 +6,7 @@ import { store } from 'store'
 import { tokenGetter } from 'store/auth/selectors'
 
 export const injectTokenHook = async (context: HookContext) => {
-  let token = tokenGetter(store.getState())
+  const token = tokenGetter(store.getState())
 
   if (token) {
     context.params.headers = {

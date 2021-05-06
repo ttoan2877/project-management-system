@@ -16,7 +16,7 @@ const Loading = ({ isLoading }: LoadingProps) => {
           style={styles.indicator}
           animating={true}
           color={AppStyles.color.PRIMARY}
-          size="large"
+          size="small"
         />
       </View>
     </Portal>

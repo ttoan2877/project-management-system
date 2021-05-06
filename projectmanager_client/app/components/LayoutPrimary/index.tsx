@@ -6,16 +6,23 @@ import Text from 'components/Text'
 
 const styles = StyleSheet.create({
   body: {
+    ...AppStyles.common.shadow,
     flex: 1,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     backgroundColor: AppStyles.color.BACKGROUND,
   },
-  container: { flex: 1, backgroundColor: AppStyles.color.WHITE },
+  container: {
+    flex: 1,
+    backgroundColor: AppStyles.color.WHITE,
+  },
   header: {
     paddingRight: 32,
     paddingLeft: 16,
     paddingVertical: 16,
+  },
+  footer: {
+    paddingTop: 8,
   },
 })
 
@@ -40,7 +47,7 @@ const LayoutPrimary = ({
     <View
       style={[
         styles.container,
-        { paddingTop: !!insets ? insets.top + 16 : 16 },
+        { paddingTop: insets ? insets.top + 16 : 16 },
         style,
       ]}>
       {title && (
@@ -50,9 +57,20 @@ const LayoutPrimary = ({
           </Text>
         </View>
       )}
+
       {renderHeader && renderHeader()}
+
       <View style={styles.body}>{children}</View>
-      {renderFooter && renderFooter()}
+
+      {renderFooter && (
+        <View
+          style={[
+            styles.footer,
+            { paddingBottom: insets ? insets.bottom + 8 : 8 },
+          ]}>
+          {renderFooter()}
+        </View>
+      )}
     </View>
   )
 }

@@ -1,5 +1,10 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
-import { createProject, updateProject, fetchProject } from './actions'
+import {
+  createProject,
+  updateProject,
+  fetchProject,
+  switchProject,
+} from './actions'
 import {
   startProject,
   projectSuccess,
@@ -10,6 +15,7 @@ import TaskAction, { ITask } from 'models/store/TaskAction.type'
 import { get } from 'lodash'
 import ProjectService from 'services/ProjectService'
 import { ProjectRequest } from 'models/api/project'
+import NavigationService from 'navigation/NavigationService'
 
 function* createProjectSaga({ payload }: ITask<ProjectRequest>) {
   try {
@@ -42,9 +48,17 @@ function* fetchProjectSaga({ payload }: ITask<number>) {
     const res = yield call([ProjectService, 'fetchProject'], payload)
 
     yield put(projectSuccess(get(res, 'project')))
+
+    NavigationService.goBack()
   } catch (e) {
     yield put(projectFail(e))
   }
+}
+
+function* switchProjectSaga() {
+  try {
+    yield put(resetProject())
+  } catch (e) {}
 }
 
 export default function* projectSagas() {
@@ -59,4 +73,6 @@ export default function* projectSagas() {
   )
 
   yield takeEvery<TaskAction<number>>(fetchProject.toString(), fetchProjectSaga)
+
+  yield takeEvery<TaskAction<void>>(switchProject.toString(), switchProjectSaga)
 }

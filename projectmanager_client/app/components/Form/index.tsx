@@ -2,7 +2,7 @@ import TextInput from 'components/TextInput'
 import React, { useCallback } from 'react'
 import { KeyboardAvoidingView, StyleSheet } from 'react-native'
 
-interface Field {
+export interface Field {
   prop: string
   label: string
   secure?: boolean
