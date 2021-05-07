@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import LayoutPrimary from 'components/LayoutPrimary'
 
 const Reports = () => {
   return (
-    <View>
-      <Text>Reports</Text>
-    </View>
+    <LayoutPrimary title="Report">
+      <Fragment />
+    </LayoutPrimary>
   )
 }
 

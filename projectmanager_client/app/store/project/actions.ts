@@ -7,4 +7,6 @@ export const updateProject = createAction<ProjectRequest>('UPDATE_PROJECT')
 
 export const fetchProject = createAction<number>('FETCH_PROJECT')
 
+export const fetchProjectTask = createAction<void>('FETCH_PROJECT_TASK')
+
 export const switchProject = createAction<void>('SWITCH_PROJECT')

@@ -33,8 +33,12 @@ class ProjectService extends BaseService {
     return this.post(ApiConfig.PROJECT.FETCH_USER, req)
   }
 
-  public fetchTaskProject(req: TaskProjectRequest) {
-    return this.post(ApiConfig.PROJECT.FETCH_TASK, req)
+  public fetchTaskProject(project_id: number) {
+    return this.post(ApiConfig.PROJECT.FETCH_TASK, {
+      project_id,
+      page_size: 1000,
+      page_index: 1,
+    })
   }
 
   public fetchUserTaskProject(req: UserTaskProjectRequest) {

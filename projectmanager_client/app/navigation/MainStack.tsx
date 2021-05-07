@@ -21,8 +21,8 @@ const App = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator headerMode="none">
-        {!!user ? (
-          !!project ? (
+        {user.ID ? (
+          project.ID ? (
             <Fragment>
               <Stack.Screen name="Main" component={DashboardTab} />
               <Stack.Screen name="Modal" component={ModalStack} />

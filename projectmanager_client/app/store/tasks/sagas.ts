@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from 'redux-saga/effects'
+import { takeEvery, put, call, select } from 'redux-saga/effects'
 import {
   createTask,
   updateTask,
@@ -10,21 +10,26 @@ import { startTask, taskSuccess, taskFail, resetTask } from './task.slice'
 import TaskAction, { ITask } from 'models/store/TaskAction.type'
 import { get } from 'lodash'
 import ProjectService from 'services/ProjectService'
-import { ProjectRequest } from 'models/api/project'
+import TaskService from 'services/TaskService'
+import { TaskRequest } from 'models/api/task'
+import { getProjectData } from 'store/project/selectors'
+import NavigationService from 'navigation/NavigationService'
+import { fetchProjectTask } from 'store/project/actions'
 
-function* createTaskSaga({ payload }: ITask<ProjectRequest>) {
+function* createTaskSaga({ payload }: ITask<TaskRequest>) {
   try {
     yield put(startTask())
-
-    const res = yield call([ProjectService, 'createProject'], payload)
-
-    yield put(taskSuccess(get(res, 'project')))
+    const { ID: project_id } = yield select(getProjectData)
+    yield call([TaskService, 'createTask'], { ...payload, project_id })
+    yield put(taskSuccess(null))
+    yield put(fetchProjectTask())
+    NavigationService.goBack()
   } catch (e) {
     yield put(taskFail(e))
   }
 }
 
-function* updateTaskSaga({ payload }: ITask<ProjectRequest>) {
+function* updateTaskSaga({ payload }: ITask<TaskRequest>) {
   try {
     yield put(startTask())
 
@@ -36,25 +41,13 @@ function* updateTaskSaga({ payload }: ITask<ProjectRequest>) {
   }
 }
 
-function* fetchProjectSaga({ payload }: ITask<number>) {
-  try {
-    yield put(startTask())
-
-    const res = yield call([ProjectService, 'fetchProject'], payload)
-
-    yield put(taskSuccess(get(res, 'project')))
-  } catch (e) {
-    yield put(taskFail(e))
-  }
-}
-
-export default function* projectSagas() {
-  yield takeEvery<TaskAction<ProjectRequest>>(
+export default function* taskSagas() {
+  yield takeEvery<TaskAction<TaskRequest>>(
     createTask.toString(),
     createTaskSaga,
   )
 
-  yield takeEvery<TaskAction<ProjectRequest>>(
+  yield takeEvery<TaskAction<TaskRequest>>(
     updateTask.toString(),
     updateTaskSaga,
   )

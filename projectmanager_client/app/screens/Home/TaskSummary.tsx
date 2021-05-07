@@ -66,7 +66,7 @@ const TaskSummary = () => {
           <Text style={styles.orangeText} type="h1">
             12
           </Text>
-          <Text type="h5" style={styles.grayText}>
+          <Text type="h5" style={styles.orangeText}>
             To do
           </Text>
         </Touchable>

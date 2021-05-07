@@ -1,19 +1,36 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Avatar } from 'react-native-paper'
+import { get } from 'lodash'
+import Touchable from 'components/Touchable'
+import NavigationService from 'navigation/NavigationService'
 
 interface AvatarListProps {
   users?: any[]
+  touchable?: boolean
 }
 
-const demo = ['XD', 'JA', 'HM', 'MT']
-
-const AvatarList = ({ users }: AvatarListProps) => {
+const AvatarList = ({ users, touchable }: AvatarListProps) => {
+  const Wrapper = touchable ? Touchable : Fragment
   return (
     <View style={styles.container}>
-      {demo.map((item, index) => (
-        <Avatar.Text size={24} style={styles.margin} label={item} />
-      ))}
+      {users &&
+        users.map((item, index) => (
+          <Wrapper
+            onPress={() =>
+              NavigationService.navigate('Modal', {
+                screen: 'MemberDetail',
+                item,
+              })
+            }>
+            <Avatar.Image
+              key={index.toString()}
+              size={40}
+              style={styles.margin}
+              source={{ uri: get(item, 'avatar', '') }}
+            />
+          </Wrapper>
+        ))}
     </View>
   )
 }

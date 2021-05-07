@@ -4,15 +4,29 @@ import Text from 'components/Text'
 import Touchable from 'components/Touchable'
 import AppStyles from 'config/styles'
 import Icon from 'components/Icon'
+import AvatarList from 'components/AvatarList'
+import NavigationService from 'navigation/NavigationService'
 
-const TeamMember = () => {
+interface TeamMemberProps {
+  users: any[]
+}
+
+const TeamMember = ({ users }: TeamMemberProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text} type="h4">
         My Team
       </Text>
-      <ScrollView horizontal contentContainerStyle={styles.content}>
-        <Touchable style={styles.btn}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.content}>
+        <AvatarList users={users} touchable />
+        <Touchable
+          style={styles.btn}
+          onPress={() =>
+            NavigationService.navigate('Modal', { screen: 'AddMember' })
+          }>
           <Icon name="plus" color={AppStyles.color.LIGHT_GRAY} />
         </Touchable>
       </ScrollView>

@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: 'black',
   },
+  disabled: {
+    backgroundColor: AppStyles.color.SECONDARY,
+  },
 })
 
 interface LayoutProps {
@@ -56,6 +59,7 @@ interface LayoutProps {
   title?: string
   renderFooterButton?: any
   style?: any
+  disableFooterButton?: boolean
   onPressFooterButton?: () => void
   footerButtonLabel?: string
 }
@@ -65,6 +69,7 @@ const SecondaryLayout = ({
   renderHeaderTitle,
   title,
   style,
+  disableFooterButton,
   renderFooterButton,
   onPressFooterButton,
   footerButtonLabel,
@@ -79,7 +84,7 @@ const SecondaryLayout = ({
     <View
       style={[
         styles.container,
-        { paddingTop: !!insets ? insets.top + 16 : 16 },
+        { paddingTop: insets ? insets.top + 16 : 16 },
         style,
       ]}>
       <View style={styles.header}>
@@ -98,10 +103,13 @@ const SecondaryLayout = ({
       <View
         style={[
           styles.footer,
-          { paddingBottom: !!insets ? insets.bottom + 16 : 16 },
+          { paddingBottom: insets ? insets.bottom + 16 : 16 },
         ]}>
         {!!onPressFooterButton && (
-          <Touchable style={styles.footerBtn} onPress={onPressFooterButton}>
+          <Touchable
+            disabled={disableFooterButton}
+            style={[styles.footerBtn, disableFooterButton && styles.disabled]}
+            onPress={onPressFooterButton}>
             <Text uppercase light type="h5">
               {footerButtonLabel}
             </Text>

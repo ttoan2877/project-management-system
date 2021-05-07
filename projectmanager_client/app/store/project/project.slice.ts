@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   isLoading: false,
   isSuccess: false,
-  data: undefined,
+  data: {},
+  task: [],
   error: undefined,
 }
 
@@ -22,6 +23,13 @@ const projectSlice = createSlice({
         state.data = action.payload
       }
     },
+    projectTaskSuccess: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      if (action.payload) {
+        state.task = action.payload
+      }
+    },
     projectFail: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
@@ -37,6 +45,7 @@ export const {
   startProject,
   projectSuccess,
   projectFail,
+  projectTaskSuccess,
   resetProject,
 } = projectSlice.actions
 

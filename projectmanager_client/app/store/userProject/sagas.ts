@@ -15,7 +15,7 @@ function* fetchUserProjectSaga() {
 
     const res = yield call([UserService, 'fetchUserProject'])
 
-    yield put(userProjectSuccess(get(res, 'project')))
+    yield put(userProjectSuccess(get(res, 'result')))
   } catch (e) {
     yield put(userProjectFail(e))
   }

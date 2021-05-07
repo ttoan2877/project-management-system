@@ -55,9 +55,9 @@ const ListEmptyComponent = () => (
 
 const Projects = () => {
   const dispatch = useDispatch()
-  const { projects, ID } = useSelector(getAuthData)
+  const { ID } = useSelector(getAuthData)
   const { isLoading } = useSelector(getProjectState)
-  // const { data } = useSelector(getUserProjectState)
+  const { data, isLoading: fetching } = useSelector(getUserProjectState)
 
   const onProject = useCallback(
     (ID: number) => {
@@ -122,20 +122,20 @@ const Projects = () => {
       <Fragment>
         <FlatList
           showsVerticalScrollIndicator={false}
-          // onRefresh={onRefresh}
-          // refreshing={isLoading}
+          onRefresh={onRefresh}
+          refreshing={fetching}
           style={styles.container}
           contentContainerStyle={[
-            !projects?.length && styles.container,
+            !data?.length && styles.container,
             styles.padding,
           ]}
-          data={projects}
+          data={data}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
           ListEmptyComponent={ListEmptyComponent}
           ItemSeparatorComponent={Separator}
         />
-        <Loading isLoading={isLoading} />
+        <Loading isLoading={isLoading || fetching} />
       </Fragment>
     </LayoutPrimary>
   )

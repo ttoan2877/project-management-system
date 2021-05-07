@@ -23,20 +23,20 @@ const styles = StyleSheet.create({
   avatar: {
     width: 48,
     height: 48,
+    borderRadius: 16,
   },
   avatarWrap: {
     backgroundColor: AppStyles.color.DARK,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: AppStyles.color.PRIMARY,
   },
 })
 
 interface HomeHeaderProps {
   name: string
+  avatar: string
 }
 
-const HomeHeader = ({ name }: HomeHeaderProps) => {
+const HomeHeader = ({ name, avatar }: HomeHeaderProps) => {
   return (
     <View style={styles.header}>
       <View style={styles.textWrap}>
@@ -44,7 +44,7 @@ const HomeHeader = ({ name }: HomeHeaderProps) => {
         <Text gray>Let's be productive today !</Text>
       </View>
       <View style={styles.avatarWrap}>
-        <Image style={styles.avatar} source={images.logo} />
+        <Image style={styles.avatar} source={{ uri: avatar }} />
       </View>
     </View>
   )

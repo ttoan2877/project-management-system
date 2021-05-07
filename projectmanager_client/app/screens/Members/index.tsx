@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import LayoutPrimary from 'components/LayoutPrimary'
 
 const Members = () => {
   return (
-    <View>
-      <Text>Member</Text>
-    </View>
+    <LayoutPrimary title="Member">
+      <Fragment />
+    </LayoutPrimary>
   )
 }
 
