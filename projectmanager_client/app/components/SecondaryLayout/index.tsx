@@ -62,6 +62,7 @@ interface LayoutProps {
   disableFooterButton?: boolean
   onPressFooterButton?: () => void
   footerButtonLabel?: string
+  hasFooter?: boolean
 }
 
 const SecondaryLayout = ({
@@ -73,6 +74,7 @@ const SecondaryLayout = ({
   renderFooterButton,
   onPressFooterButton,
   footerButtonLabel,
+  hasFooter = true,
 }: LayoutProps) => {
   const insets = useSafeAreaInsets()
 
@@ -92,7 +94,7 @@ const SecondaryLayout = ({
           <Icon name="arrow-left" size={16} style={styles.icon} />
           <Text bold>Back</Text>
         </Touchable>
-        {title && (
+        {!!title && (
           <Text uppercase type="h5">
             {title}
           </Text>
@@ -100,23 +102,25 @@ const SecondaryLayout = ({
         {renderHeaderTitle && renderHeaderTitle()}
       </View>
       <View style={styles.body}>{children}</View>
-      <View
-        style={[
-          styles.footer,
-          { paddingBottom: insets ? insets.bottom + 16 : 16 },
-        ]}>
-        {!!onPressFooterButton && (
-          <Touchable
-            disabled={disableFooterButton}
-            style={[styles.footerBtn, disableFooterButton && styles.disabled]}
-            onPress={onPressFooterButton}>
-            <Text uppercase light type="h5">
-              {footerButtonLabel}
-            </Text>
-          </Touchable>
-        )}
-        {renderFooterButton && renderFooterButton()}
-      </View>
+      {hasFooter && (
+        <View
+          style={[
+            styles.footer,
+            { paddingBottom: insets ? insets.bottom + 16 : 16 },
+          ]}>
+          {!!onPressFooterButton && (
+            <Touchable
+              disabled={disableFooterButton}
+              style={[styles.footerBtn, disableFooterButton && styles.disabled]}
+              onPress={onPressFooterButton}>
+              <Text uppercase light type="h5">
+                {footerButtonLabel}
+              </Text>
+            </Touchable>
+          )}
+          {renderFooterButton && renderFooterButton()}
+        </View>
+      )}
     </View>
   )
 }

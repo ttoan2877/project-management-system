@@ -5,6 +5,7 @@ const initialState = {
   isSuccess: false,
   data: {},
   task: [],
+  member: [],
   error: undefined,
 }
 
@@ -30,6 +31,13 @@ const projectSlice = createSlice({
         state.task = action.payload
       }
     },
+    projectMemberSuccess: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      if (action.payload) {
+        state.member = action.payload
+      }
+    },
     projectFail: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
@@ -46,6 +54,7 @@ export const {
   projectSuccess,
   projectFail,
   projectTaskSuccess,
+  projectMemberSuccess,
   resetProject,
 } = projectSlice.actions
 

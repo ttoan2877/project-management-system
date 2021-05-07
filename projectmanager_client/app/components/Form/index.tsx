@@ -6,6 +6,7 @@ export interface Field {
   prop: string
   label: string
   secure?: boolean
+  multiline?: boolean
 }
 
 interface FormProps {
@@ -41,6 +42,7 @@ const Form = ({ fields, data, onChangeData, style }: FormProps) => {
           label={field.label}
           value={data[field.prop]}
           secureTextEntry={field.secure}
+          multiline={field.multiline}
           onChange={(value: string) => onChangeValue(field.prop, value)}
           style={[!!index && styles.top8]}
         />

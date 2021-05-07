@@ -21,8 +21,3 @@ export interface UserTaskProjectRequest {
   user_id: number
   status?: number
 }
-
-export interface FetchUserProjectRequest {
-  query: string
-  project_id: number
-}

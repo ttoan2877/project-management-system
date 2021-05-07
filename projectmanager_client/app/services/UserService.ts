@@ -19,8 +19,11 @@ class TaskService extends BaseService {
     })
   }
 
-  public fetchAllUser(req: string) {
-    return this.post(ApiConfig.SUBTASK.CREATE, { query: req })
+  public fetchAllUser() {
+    return this.post(ApiConfig.USER.FETCH_ALL_USER, {
+      page_size: 100,
+      page_index: 1,
+    })
   }
 }
 

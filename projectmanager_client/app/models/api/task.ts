@@ -1,8 +1,13 @@
+export enum Status {
+  TODO = 1,
+  DOING = 2,
+  DONE = 3,
+  CLOSED = 4,
+}
 export interface TaskRequest {
   ID?: number
   name: string
   description: string
-  deadline: string
   project_id?: number
 }
 

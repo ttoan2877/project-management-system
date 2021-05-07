@@ -7,7 +7,6 @@ import Home from 'screens/Home'
 import Setting from 'screens/Setting'
 import Tasks from 'screens/Tasks'
 import Members from 'screens/Members'
-import Reports from 'screens/Reports'
 
 const Tab = createBottomTabNavigator()
 
@@ -36,7 +35,7 @@ const DashboardTab = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Report"
         component={Reports}
         options={{
@@ -44,7 +43,7 @@ const DashboardTab = () => {
             <Icon name="calendar-month-outline" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Member"
         component={Members}

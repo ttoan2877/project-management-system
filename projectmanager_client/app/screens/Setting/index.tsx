@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   red: {
     justifyContent: 'center',
-    backgroundColor: AppStyles.color.DANGER,
+    backgroundColor: AppStyles.color.GRAY,
   },
   green: {
     backgroundColor: AppStyles.color.GREEN,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppStyles.color.ORANGE,
   },
   yellow: {
-    backgroundColor: AppStyles.color.WARNING,
+    backgroundColor: AppStyles.color.SECONDARY,
   },
 })
 

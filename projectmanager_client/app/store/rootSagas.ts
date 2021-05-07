@@ -3,6 +3,7 @@ import authSagas from './auth/sagas'
 import projectSagas from './project/sagas'
 import fetchUserProjectSagas from './userProject/sagas'
 import taskSagas from './tasks/sagas'
+import fetchAllUserSagas from './user/sagas'
 
 export default function* rootSagas() {
   yield all([
@@ -11,5 +12,6 @@ export default function* rootSagas() {
     projectSagas(),
     taskSagas(),
     fetchUserProjectSagas(),
+    fetchAllUserSagas(),
   ])
 }

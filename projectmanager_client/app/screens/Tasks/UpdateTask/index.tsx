@@ -4,7 +4,8 @@ import Form from 'components/Form'
 import Loading from 'components/Loading'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTaskState } from 'store/tasks/selectors'
-import { createTask } from 'store/tasks/actions'
+import { updateTask } from 'store/tasks/actions'
+import { get } from 'lodash'
 
 const FIELDS = [
   {
@@ -18,24 +19,25 @@ const FIELDS = [
   },
 ]
 
-const CreateTask = () => {
+const UpdateTask = ({ route }: any) => {
   const dispatch = useDispatch()
   const { isLoading } = useSelector(getTaskState)
-  const [data, setData] = useState<any>({})
+  const [data, setData] = useState<any>(get(route, 'params.data', {}))
+  const ID = useMemo(() => get(route, 'params.ID'), [route])
 
   const isValid = useMemo(() => data.name && data.description, [data])
 
   const onSubmit = useCallback(() => {
     if (!isValid) return
-    dispatch(createTask(data))
-  }, [data, dispatch, isValid])
+    dispatch(updateTask({ ...data, ID }))
+  }, [ID, data, dispatch, isValid])
 
   return (
     <SecondaryLayout
-      title="Create new task"
+      title="Update task information"
       disableFooterButton={!isValid}
       onPressFooterButton={onSubmit}
-      footerButtonLabel="Create task">
+      footerButtonLabel="Update">
       <Fragment>
         <Form fields={FIELDS} data={data} onChangeData={setData} />
         <Loading isLoading={isLoading} />
@@ -44,4 +46,4 @@ const CreateTask = () => {
   )
 }
 
-export default CreateTask
+export default UpdateTask

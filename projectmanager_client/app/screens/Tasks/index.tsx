@@ -87,7 +87,6 @@ const Tasks = () => {
     },
     [onTaskDetail],
   )
-  // useEffect(() => {}, [])
   return (
     <LayoutPrimary title="Task list">
       <Fragment>
@@ -107,7 +106,7 @@ const Tasks = () => {
           ItemSeparatorComponent={Separator}
         />
         <Loading isLoading={isLoading} />
-        <FloatingButton icon="plus" onPress={onCreate} />
+        <FloatingButton icon="calendar" onPress={onCreate} />
       </Fragment>
     </LayoutPrimary>
   )

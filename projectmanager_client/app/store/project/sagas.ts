@@ -5,6 +5,7 @@ import {
   fetchProject,
   switchProject,
   fetchProjectTask,
+  fetchProjectMember,
 } from './actions'
 import {
   startProject,
@@ -12,6 +13,7 @@ import {
   projectFail,
   resetProject,
   projectTaskSuccess,
+  projectMemberSuccess,
 } from './project.slice'
 import TaskAction, { ITask } from 'models/store/TaskAction.type'
 import { get } from 'lodash'
@@ -69,6 +71,19 @@ function* fetchProjectTaskSaga() {
   }
 }
 
+function* fetchProjectMemberSaga() {
+  try {
+    yield put(startProject())
+    const { ID } = yield select(getProjectData)
+
+    const res = yield call([ProjectService, 'fetchUserProject'], ID)
+
+    yield put(projectMemberSuccess(get(res, 'result')))
+  } catch (e) {
+    yield put(projectFail(e))
+  }
+}
+
 function* switchProjectSaga() {
   try {
     yield put(resetProject())
@@ -93,5 +108,10 @@ export default function* projectSagas() {
   yield takeEvery<TaskAction<void>>(
     fetchProjectTask.toString(),
     fetchProjectTaskSaga,
+  )
+
+  yield takeEvery<TaskAction<void>>(
+    fetchProjectMember.toString(),
+    fetchProjectMemberSaga,
   )
 }

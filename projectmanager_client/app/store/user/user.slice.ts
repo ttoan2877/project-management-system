@@ -3,36 +3,36 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   isLoading: false,
   isSuccess: false,
-  data: {},
+  data: [],
   error: undefined,
 }
 
-const TaskSlice = createSlice({
-  name: 'task',
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
-    startTask: state => {
+    startUser: state => {
       state.isLoading = true
       state.isSuccess = false
     },
-    taskSuccess: (state, action) => {
+    userSuccess: (state, action) => {
       state.isLoading = false
       state.isSuccess = true
       if (action.payload) {
         state.data = action.payload
       }
     },
-    taskFail: (state, action) => {
+    userFail: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
       state.error = action.payload
     },
-    resetTask: () => {
+    resetUser: () => {
       return initialState
     },
   },
 })
 
-export const { startTask, taskSuccess, taskFail, resetTask } = TaskSlice.actions
+export const { startUser, userSuccess, userFail, resetUser } = userSlice.actions
 
-export const { reducer: TaskReducer } = TaskSlice
+export const { reducer: userReducer } = userSlice

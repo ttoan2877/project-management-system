@@ -8,15 +8,12 @@ import Text from 'components/Text'
 import AppStyles from 'config/styles'
 import FloatingButton from 'components/FloatingButton'
 import NavigationService from 'navigation/NavigationService'
-import { fetchProjectTask, fetchProjectMember } from 'store/project/actions'
-import {
-  getProjectTask,
-  getProjectState,
-  getProjectData,
-  getProjectMember,
-} from 'store/project/selectors'
+
 import { get } from 'lodash'
 import Card from 'components/Card'
+import { getUserData, getUserState } from 'store/user/selectors'
+import { fetchAllUser } from 'store/user/actions'
+import SecondaryLayout from 'components/SecondaryLayout'
 
 const styles = StyleSheet.create({
   container: {
@@ -48,30 +45,17 @@ const styles = StyleSheet.create({
   },
 })
 
-const ListEmptyComponent = () => (
-  <View style={[styles.container, styles.center]}>
-    <Text>Please create a task</Text>
-  </View>
-)
-
-const Members = () => {
+const SearchUser = () => {
   const dispatch = useDispatch()
-  const data = useSelector(getProjectMember)
-  const { isLoading } = useSelector(getProjectState)
+  const data = useSelector(getUserData)
+  const { isLoading } = useSelector(getUserState)
 
-  const onCreate = useCallback(() => {
-    NavigationService.navigate('Modal', { screen: 'CreateTask' })
-  }, [])
-
-  const onMemberDetail = useCallback((ID: number) => {
-    NavigationService.navigate('Modal', {
-      screen: 'MemberDetail',
-      params: { ID },
-    })
+  const onUser = useCallback((ID: number) => {
+    // dispatch()
   }, [])
 
   const onRefresh = useCallback(() => {
-    dispatch(fetchProjectMember())
+    dispatch(fetchAllUser())
   }, [dispatch])
 
   useEffect(() => {
@@ -85,35 +69,33 @@ const Members = () => {
           name={get(item, 'fullname', '')}
           email={get(item, 'mail', '')}
           userAvatar={get(item, 'avatar', '')}
-          onPress={() => onMemberDetail(get(item, 'ID'))}
+          onPress={() => onUser(get(item, 'ID'))}
         />
       )
     },
-    [onMemberDetail],
+    [onUser],
   )
   return (
-    <LayoutPrimary title="Member">
+    <SecondaryLayout title="Select user" hasFooter={false}>
       <Fragment>
         <FlatList
           onRefresh={onRefresh}
           refreshing={isLoading}
           showsVerticalScrollIndicator={false}
           style={styles.container}
+          data={data}
           contentContainerStyle={[
             !data?.length && styles.container,
             styles.padding,
           ]}
-          data={data}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
-          ListEmptyComponent={ListEmptyComponent}
           ItemSeparatorComponent={Separator}
         />
         <Loading isLoading={isLoading} />
-        <FloatingButton icon="account-multiple" onPress={onCreate} />
       </Fragment>
-    </LayoutPrimary>
+    </SecondaryLayout>
   )
 }
 
-export default Members
+export default SearchUser

@@ -1,14 +1,15 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useMemo } from 'react'
+import { StyleSheet, View } from 'react-native'
+import SecondaryLayout from 'components/SecondaryLayout'
+import { get } from 'lodash'
 
-const MemberDetail = () => {
+const MemberDetail = ({ route }: any) => {
+  const member = useMemo(() => get(route, 'params.item'), [route])
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <SecondaryLayout title={get(member, 'fullname', '')}>
+      <View />
+    </SecondaryLayout>
   )
 }
 
 export default MemberDetail
-
-const styles = StyleSheet.create({})

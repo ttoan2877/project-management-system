@@ -20,7 +20,7 @@ const AvatarList = ({ users, touchable }: AvatarListProps) => {
             onPress={() =>
               NavigationService.navigate('Modal', {
                 screen: 'MemberDetail',
-                item,
+                params: { item },
               })
             }>
             <Avatar.Image

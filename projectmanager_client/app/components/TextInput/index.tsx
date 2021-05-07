@@ -9,6 +9,7 @@ interface TextInputProps {
   onChange: (_: string) => void
   style?: any
   secureTextEntry?: boolean
+  multiline?: boolean
 }
 
 const styles = StyleSheet.create({
@@ -24,6 +25,7 @@ const TextInput = ({
   onChange,
   style,
   secureTextEntry,
+  multiline,
   ...props
 }: TextInputProps) => {
   return (
@@ -34,6 +36,7 @@ const TextInput = ({
       mode="outlined"
       style={[styles.input, style]}
       secureTextEntry={secureTextEntry}
+      multiline={multiline}
       {...props}
     />
   )

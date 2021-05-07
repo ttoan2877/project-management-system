@@ -2,7 +2,6 @@ import Text from 'components/Text'
 import AppStyles from 'config/styles'
 import React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
-import images from 'config/images'
 
 const styles = StyleSheet.create({
   container: {

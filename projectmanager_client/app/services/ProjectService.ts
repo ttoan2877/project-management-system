@@ -3,8 +3,6 @@ import BaseService from './BaseService'
 import {
   ProjectRequest,
   ProjectUserRequest,
-  FetchUserProjectRequest,
-  TaskProjectRequest,
   UserTaskProjectRequest,
 } from 'models/api/project'
 
@@ -29,8 +27,12 @@ class ProjectService extends BaseService {
     return this.post(ApiConfig.PROJECT.REMOVE_USER, req)
   }
 
-  public fetchUserProject(req: FetchUserProjectRequest) {
-    return this.post(ApiConfig.PROJECT.FETCH_USER, req)
+  public fetchUserProject(req: number) {
+    return this.post(ApiConfig.PROJECT.FETCH_USER, {
+      project_id: req,
+      page_size: 1000,
+      page_index: 1,
+    })
   }
 
   public fetchTaskProject(project_id: number) {

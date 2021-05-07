@@ -14,6 +14,7 @@ const FIELDS = [
   {
     prop: 'description',
     label: 'Description',
+    multiline: true,
   },
 ]
 

@@ -25,7 +25,7 @@ const TeamMember = ({ users }: TeamMemberProps) => {
         <Touchable
           style={styles.btn}
           onPress={() =>
-            NavigationService.navigate('Modal', { screen: 'AddMember' })
+            NavigationService.navigate('Modal', { screen: 'SearchUser' })
           }>
           <Icon name="plus" color={AppStyles.color.LIGHT_GRAY} />
         </Touchable>

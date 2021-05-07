@@ -8,7 +8,7 @@ import { navigationRef } from './NavigationService'
 import DashboardTab from './NavigationTab'
 import Auth from 'screens/Auth'
 import { getAuthData } from 'store/auth/selectors'
-import ModalStack from './MolalStack'
+import ModalStack from './ModalStack'
 import { getProjectData } from 'store/project/selectors'
 import ProjectStack from './ProjectStack'
 
