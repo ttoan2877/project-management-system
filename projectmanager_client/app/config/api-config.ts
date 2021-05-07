@@ -33,7 +33,6 @@ const ApiConfig = {
     TODO: 'task/set-todo',
     DOING: 'task/set-doing',
     DONE: 'task/set-done',
-    WAITING: 'task/set-waiting',
     DELETE: 'task/set-delete',
   },
 }

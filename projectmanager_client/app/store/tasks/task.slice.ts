@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   data: {},
+  assignee: [],
   error: undefined,
 }
 
@@ -22,6 +23,13 @@ const TaskSlice = createSlice({
         state.data = action.payload
       }
     },
+    taskAssigneeSuccess: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      if (action.payload) {
+        state.assignee = action.payload
+      }
+    },
     taskFail: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
@@ -33,6 +41,12 @@ const TaskSlice = createSlice({
   },
 })
 
-export const { startTask, taskSuccess, taskFail, resetTask } = TaskSlice.actions
+export const {
+  startTask,
+  taskSuccess,
+  taskFail,
+  resetTask,
+  taskAssigneeSuccess,
+} = TaskSlice.actions
 
 export const { reducer: TaskReducer } = TaskSlice

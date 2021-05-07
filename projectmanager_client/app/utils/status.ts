@@ -1,5 +1,6 @@
 import { Status } from 'models/api/task'
 import AppStyles from 'config/styles'
+import ApiConfig from 'config/api-config'
 
 export const getStatusColor = (status: Status) => {
   switch (status) {
@@ -28,5 +29,18 @@ export const getStatusLabel = (status: Status) => {
       return 'Closed'
     default:
       return 'Incompleted'
+  }
+}
+
+export const getStatusRoute = (status: Status) => {
+  switch (status) {
+    case Status.TODO:
+      return ApiConfig.STATUS.TODO
+    case Status.DOING:
+      return ApiConfig.STATUS.DOING
+    case Status.DONE:
+      return ApiConfig.STATUS.DONE
+    case Status.CLOSED:
+      return ApiConfig.STATUS.DELETE
   }
 }

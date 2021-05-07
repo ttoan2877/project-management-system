@@ -77,9 +77,6 @@ const TaskDetail = ({ route }: any) => {
 
   useEffect(() => {
     onRefresh()
-    return () => {
-      dispatch(resetTask())
-    }
   }, [dispatch, onRefresh])
 
   const renderHeaderTitle = useCallback(() => {}, [])

@@ -16,19 +16,7 @@ export interface AssignRequest {
   user_id: number
 }
 
-export interface UserTaskRequest {
-  query: string
-  task_id: number
-}
-
-export interface SubtaskRequest {
-  ID?: number
-  task_id?: number
-  is_done?: boolean
-  description: string
-}
-
 export interface ChangeStatusRequest {
   task_id: number
-  status: number
+  status: Status
 }

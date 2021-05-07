@@ -1,10 +1,6 @@
 import ApiConfig from 'config/api-config'
 import BaseService from './BaseService'
-import {
-  ProjectRequest,
-  ProjectUserRequest,
-  UserTaskProjectRequest,
-} from 'models/api/project'
+import { ProjectRequest, ProjectUserRequest } from 'models/api/project'
 
 class ProjectService extends BaseService {
   public createProject(req: ProjectRequest) {
@@ -41,10 +37,6 @@ class ProjectService extends BaseService {
       page_size: 1000,
       page_index: 1,
     })
-  }
-
-  public fetchUserTaskProject(req: UserTaskProjectRequest) {
-    return this.post(ApiConfig.PROJECT.FETCH_USER_TASK, req)
   }
 }
 

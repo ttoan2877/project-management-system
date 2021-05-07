@@ -1,19 +1,17 @@
 import React, { useEffect, Fragment, useCallback } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
-import LayoutPrimary from 'components/LayoutPrimary'
 import { useDispatch, useSelector } from 'react-redux'
 import Separator from 'components/Separator'
 import Loading from 'components/Loading'
-import Text from 'components/Text'
 import AppStyles from 'config/styles'
-import FloatingButton from 'components/FloatingButton'
-import NavigationService from 'navigation/NavigationService'
 
 import { get } from 'lodash'
 import Card from 'components/Card'
 import { getUserData, getUserState } from 'store/user/selectors'
 import { fetchAllUser } from 'store/user/actions'
 import SecondaryLayout from 'components/SecondaryLayout'
+import { addMember } from 'store/project/actions'
+import { getProjectState } from 'store/project/selectors'
 
 const styles = StyleSheet.create({
   container: {
@@ -48,11 +46,15 @@ const styles = StyleSheet.create({
 const SearchUser = () => {
   const dispatch = useDispatch()
   const data = useSelector(getUserData)
-  const { isLoading } = useSelector(getUserState)
+  const { isLoading: fetching } = useSelector(getUserState)
+  const { isLoading } = useSelector(getProjectState)
 
-  const onUser = useCallback((ID: number) => {
-    // dispatch()
-  }, [])
+  const onUser = useCallback(
+    (ID: number) => {
+      dispatch(addMember(ID))
+    },
+    [dispatch],
+  )
 
   const onRefresh = useCallback(() => {
     dispatch(fetchAllUser())
@@ -80,7 +82,7 @@ const SearchUser = () => {
       <Fragment>
         <FlatList
           onRefresh={onRefresh}
-          refreshing={isLoading}
+          refreshing={fetching}
           showsVerticalScrollIndicator={false}
           style={styles.container}
           data={data}
@@ -92,7 +94,7 @@ const SearchUser = () => {
           renderItem={renderItem}
           ItemSeparatorComponent={Separator}
         />
-        <Loading isLoading={isLoading} />
+        <Loading isLoading={fetching || isLoading} />
       </Fragment>
     </SecondaryLayout>
   )
