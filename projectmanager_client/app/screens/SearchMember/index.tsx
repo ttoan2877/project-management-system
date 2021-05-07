@@ -12,7 +12,7 @@ import { get } from 'lodash'
 import Card from 'components/Card'
 import SecondaryLayout from 'components/SecondaryLayout'
 import { assignMember } from 'store/tasks/actions'
-import { getTaskData } from 'store/tasks/selectors'
+import { getTaskData, getMemberToAssign } from 'store/tasks/selectors'
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
 const SearchMember = () => {
   const dispatch = useDispatch()
-  const data = useSelector(getProjectMember)
+  const data = useSelector(getMemberToAssign)
   const { isLoading } = useSelector(getProjectState)
   const { users } = useSelector(getTaskData)
 

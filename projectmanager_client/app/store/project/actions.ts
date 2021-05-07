@@ -15,4 +15,6 @@ export const removeMember = createAction<number>('REMOVE_MEMBER')
 
 export const fetchProjectTask = createAction<void>('FETCH_PROJECT_TASK')
 
+export const setMemberRole = createAction<any>('SET_MEMBER_ROLE')
+
 export const switchProject = createAction<void>('SWITCH_PROJECT')

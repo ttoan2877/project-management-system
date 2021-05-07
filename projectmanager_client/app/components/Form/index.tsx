@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
+    flex: 1,
     padding: 16,
   },
 })
@@ -35,7 +36,9 @@ const Form = ({ fields, data, onChangeData, style }: FormProps) => {
   )
 
   return (
-    <KeyboardAvoidingView style={[styles.container, style]}>
+    <KeyboardAvoidingView
+      style={[styles.container, style]}
+      contentContainerStyle={{ flex: 1 }}>
       {fields.map((field: Field, index: number) => (
         <TextInput
           key={field.prop}

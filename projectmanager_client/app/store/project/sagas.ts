@@ -8,6 +8,7 @@ import {
   fetchProjectMember,
   addMember,
   removeMember,
+  setMemberRole,
 } from './actions'
 import {
   startProject,
@@ -16,6 +17,7 @@ import {
   resetProject,
   projectTaskSuccess,
   projectMemberSuccess,
+  setRole,
 } from './project.slice'
 import TaskAction, { ITask } from 'models/store/TaskAction.type'
 import { get } from 'lodash'
@@ -23,6 +25,8 @@ import ProjectService from 'services/ProjectService'
 import { ProjectRequest } from 'models/api/project'
 import NavigationService from 'navigation/NavigationService'
 import { getProjectData } from './selectors'
+import { fetchMyTask } from 'store/myTask/actions'
+import ApiConfig from 'config/api-config'
 
 function* createProjectSaga({ payload }: ITask<ProjectRequest>) {
   try {
@@ -37,8 +41,10 @@ function* createProjectSaga({ payload }: ITask<ProjectRequest>) {
 function* updateProjectSaga({ payload }: ITask<ProjectRequest>) {
   try {
     yield put(startProject())
-    const res = yield call([ProjectService, 'updateProject'], payload)
-    yield put(projectSuccess(get(res, 'project')))
+    const { ID } = yield select(getProjectData)
+    yield call([ProjectService, 'updateProject'], { ...payload, ID })
+    yield put(projectSuccess(null))
+    yield put(fetchProject(ID))
   } catch (e) {
     yield put(projectFail(e))
   }
@@ -49,6 +55,10 @@ function* fetchProjectSaga({ payload }: ITask<number>) {
     yield put(startProject())
     const res = yield call([ProjectService, 'fetchProject'], payload)
     yield put(projectSuccess(get(res, 'project')))
+    yield put(setRole(get(res, 'role')))
+    yield put(fetchProjectTask())
+    yield put(fetchProjectMember())
+    yield put(fetchMyTask())
   } catch (e) {
     yield put(projectFail(e))
   }
@@ -88,7 +98,7 @@ function* addMemberSaga({ payload: user_id }: ITask<number>) {
     const { ID: project_id } = yield select(getProjectData)
     const res = yield call([ProjectService, 'addUser'], { project_id, user_id })
     yield put(projectMemberSuccess(get(res, 'result')))
-    yield put(fetchProjectMember())
+    yield put(fetchProject(project_id))
     NavigationService.goBack()
   } catch (e) {
     yield put(projectFail(e))
@@ -105,7 +115,27 @@ function* removeMemberSaga({ payload: user_id }: ITask<number>) {
       user_id,
     })
     yield put(projectMemberSuccess(get(res, 'result')))
-    yield put(fetchProjectMember())
+    yield put(fetchProject(project_id))
+    NavigationService.goBack()
+  } catch (e) {
+    yield put(projectFail(e))
+  }
+}
+
+function* setMemberRoleSaga({ payload }: ITask<any>) {
+  try {
+    yield put(startProject())
+    const { ID: project_id } = yield select(getProjectData)
+
+    const res = yield call([ProjectService, 'setRole'], {
+      project_id,
+      user_id: payload.user_id,
+      url: payload.isAdmin
+        ? ApiConfig.PROJECT.SET_ADMIN
+        : ApiConfig.PROJECT.SET_MEMBER,
+    })
+    yield put(projectMemberSuccess(get(res, 'result')))
+    yield put(fetchProject(project_id))
     NavigationService.goBack()
   } catch (e) {
     yield put(projectFail(e))
@@ -140,4 +170,6 @@ export default function* projectSagas() {
   yield takeEvery<TaskAction<number>>(fetchProject.toString(), fetchProjectSaga)
 
   yield takeEvery<TaskAction<void>>(switchProject.toString(), switchProjectSaga)
+
+  yield takeEvery<TaskAction<any>>(setMemberRole.toString(), setMemberRoleSaga)
 }

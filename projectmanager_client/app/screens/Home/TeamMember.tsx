@@ -9,9 +9,10 @@ import NavigationService from 'navigation/NavigationService'
 
 interface TeamMemberProps {
   users: any[]
+  isAdmin: boolean
 }
 
-const TeamMember = ({ users }: TeamMemberProps) => {
+const TeamMember = ({ users, isAdmin }: TeamMemberProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text} type="h4">
@@ -22,13 +23,15 @@ const TeamMember = ({ users }: TeamMemberProps) => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.content}>
         <AvatarList users={users} touchable />
-        <Touchable
-          style={styles.btn}
-          onPress={() =>
-            NavigationService.navigate('Modal', { screen: 'SearchUser' })
-          }>
-          <Icon name="plus" color={AppStyles.color.LIGHT_GRAY} />
-        </Touchable>
+        {isAdmin && (
+          <Touchable
+            style={styles.btn}
+            onPress={() =>
+              NavigationService.navigate('Modal', { screen: 'SearchUser' })
+            }>
+            <Icon name="plus" color={AppStyles.color.LIGHT_GRAY} />
+          </Touchable>
+        )}
       </ScrollView>
     </View>
   )

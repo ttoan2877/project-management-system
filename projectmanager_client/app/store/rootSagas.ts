@@ -5,6 +5,7 @@ import fetchUserProjectSagas from './userProject/sagas'
 import taskSagas from './tasks/sagas'
 import fetchAllUserSagas from './user/sagas'
 import updateInfoSagas from './info/sagas'
+import fetchMyTaskSagas from './myTask/sagas'
 
 export default function* rootSagas() {
   yield all([
@@ -13,6 +14,7 @@ export default function* rootSagas() {
     taskSagas(),
     fetchUserProjectSagas(),
     fetchAllUserSagas(),
-    updateInfoSagas,
+    updateInfoSagas(),
+    fetchMyTaskSagas(),
   ])
 }

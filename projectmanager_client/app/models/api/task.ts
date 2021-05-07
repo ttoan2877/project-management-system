@@ -2,10 +2,10 @@ export enum Status {
   TODO = 1,
   DOING = 2,
   DONE = 3,
-  CLOSED = 4,
+  CLOSED = 5,
 }
 
-export const statusArr = [1, 2, 3, 4]
+export const statusArr = [1, 2, 3, 5]
 export interface TaskRequest {
   ID?: number
   name: string

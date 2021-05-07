@@ -16,6 +16,8 @@ const ApiConfig = {
     FETCH_USER: 'project/search-user',
     FETCH_TASK: 'project/search-task',
     FETCH_USER_TASK: 'project/search-user-task',
+    SET_ADMIN: 'project/set-admin',
+    SET_MEMBER: 'project/set-member',
   },
   TASK: {
     CREATE: 'task/create',

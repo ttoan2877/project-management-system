@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useCallback } from 'react'
+import React, { useEffect, Fragment, useCallback, useMemo } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import LayoutPrimary from 'components/LayoutPrimary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,8 +9,12 @@ import AppStyles from 'config/styles'
 import FloatingButton from 'components/FloatingButton'
 import NavigationService from 'navigation/NavigationService'
 import { fetchProjectMember } from 'store/project/actions'
-import { getProjectState, getProjectMember } from 'store/project/selectors'
-import { get } from 'lodash'
+import {
+  getProjectState,
+  getProjectMember,
+  getCurrentRole,
+} from 'store/project/selectors'
+import { get, clone } from 'lodash'
 import Card from 'components/Card'
 
 const styles = StyleSheet.create({
@@ -53,15 +57,16 @@ const Members = () => {
   const dispatch = useDispatch()
   const data = useSelector(getProjectMember)
   const { isLoading } = useSelector(getProjectState)
+  const role = useSelector(getCurrentRole)
 
   const onAddMember = useCallback(() => {
     NavigationService.navigate('Modal', { screen: 'SearchUser' })
   }, [])
 
-  const onMemberDetail = useCallback((ID: number) => {
+  const onMemberDetail = useCallback((item: any) => {
     NavigationService.navigate('Modal', {
       screen: 'MemberDetail',
-      params: { ID },
+      params: { item },
     })
   }, [])
 
@@ -80,12 +85,15 @@ const Members = () => {
           name={get(item, 'fullname', '')}
           email={get(item, 'mail', '')}
           userAvatar={get(item, 'avatar', '')}
-          onPress={() => onMemberDetail(get(item, 'id'))}
+          onPress={() => onMemberDetail(item)}
         />
       )
     },
     [onMemberDetail],
   )
+
+  const convertData = useMemo(() => (data ? clone(data).reverse() : []), [data])
+
   return (
     <LayoutPrimary title="Member">
       <Fragment>
@@ -98,14 +106,16 @@ const Members = () => {
             !data?.length && styles.container,
             styles.padding,
           ]}
-          data={data}
+          data={convertData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
           ListEmptyComponent={ListEmptyComponent}
           ItemSeparatorComponent={Separator}
         />
         <Loading isLoading={isLoading} />
-        <FloatingButton icon="account-multiple" onPress={onAddMember} />
+        {role === 'admin' && (
+          <FloatingButton icon="account-multiple" onPress={onAddMember} />
+        )}
       </Fragment>
     </LayoutPrimary>
   )

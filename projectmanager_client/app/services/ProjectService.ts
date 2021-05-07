@@ -38,6 +38,21 @@ class ProjectService extends BaseService {
       page_index: 1,
     })
   }
+
+  public fetchMyTask(req: any) {
+    return this.post(ApiConfig.PROJECT.FETCH_USER_TASK, {
+      ...req,
+      page_size: 100,
+      page_index: 1,
+    })
+  }
+
+  public setRole(req: any) {
+    return this.post(req.url, {
+      project_id: req.project_id,
+      user_id: req.user_id,
+    })
+  }
 }
 
 export default new ProjectService()

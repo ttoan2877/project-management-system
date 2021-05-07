@@ -6,6 +6,7 @@ const initialState = {
   data: {},
   task: [],
   member: [],
+  role: '',
   error: undefined,
 }
 
@@ -43,6 +44,9 @@ const projectSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload
     },
+    setRole: (state, action) => {
+      state.role = action.payload
+    },
     resetProject: () => {
       return initialState
     },
@@ -56,6 +60,7 @@ export const {
   projectTaskSuccess,
   projectMemberSuccess,
   resetProject,
+  setRole,
 } = projectSlice.actions
 
 export const { reducer: projectReducer } = projectSlice

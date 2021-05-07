@@ -7,7 +7,7 @@ import AppStyles from 'config/styles'
 
 import { get } from 'lodash'
 import Card from 'components/Card'
-import { getUserData, getUserState } from 'store/user/selectors'
+import { getUserData, getUserState, getUserToAdd } from 'store/user/selectors'
 import { fetchAllUser } from 'store/user/actions'
 import SecondaryLayout from 'components/SecondaryLayout'
 import { addMember } from 'store/project/actions'
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
 const SearchUser = () => {
   const dispatch = useDispatch()
-  const data = useSelector(getUserData)
+  const data = useSelector(getUserToAdd)
   const { isLoading: fetching } = useSelector(getUserState)
   const { isLoading } = useSelector(getProjectState)
 

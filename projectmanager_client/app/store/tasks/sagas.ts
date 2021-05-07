@@ -17,7 +17,7 @@ import {
 import TaskAction, { ITask } from 'models/store/TaskAction.type'
 import { get } from 'lodash'
 import TaskService from 'services/TaskService'
-import { TaskRequest, ChangeStatusRequest, Status } from 'models/api/task'
+import { TaskRequest, Status } from 'models/api/task'
 import { getProjectData } from 'store/project/selectors'
 import NavigationService from 'navigation/NavigationService'
 import { fetchProjectTask } from 'store/project/actions'

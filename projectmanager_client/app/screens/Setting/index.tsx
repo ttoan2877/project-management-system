@@ -79,17 +79,15 @@ const Setting = () => {
               Update your information
             </Text>
           </Touchable>
-          {isOwner && (
-            <Touchable
-              style={[styles.btn, styles.orange]}
-              onPress={() =>
-                NavigationService.navigate('Modal', { screen: 'UpdateProject' })
-              }>
-              <Text light type="h5" uppercase>
-                Update project information
-              </Text>
-            </Touchable>
-          )}
+          <Touchable
+            style={[styles.btn, styles.orange]}
+            onPress={() =>
+              NavigationService.navigate('Modal', { screen: 'UpdateProject' })
+            }>
+            <Text light type="h5" uppercase>
+              Update project information
+            </Text>
+          </Touchable>
         </View>
         <Touchable style={[styles.btn, styles.red]} onPress={onLogout}>
           <Text light type="h5" uppercase>

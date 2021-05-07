@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useCallback } from 'react'
+import React, { useEffect, Fragment, useCallback, useMemo } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import LayoutPrimary from 'components/LayoutPrimary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,8 +9,12 @@ import AppStyles from 'config/styles'
 import FloatingButton from 'components/FloatingButton'
 import NavigationService from 'navigation/NavigationService'
 import { fetchProjectTask } from 'store/project/actions'
-import { getProjectTask, getProjectState } from 'store/project/selectors'
-import { get } from 'lodash'
+import {
+  getProjectTask,
+  getProjectState,
+  getCurrentRole,
+} from 'store/project/selectors'
+import { get, clone } from 'lodash'
 import Card from 'components/Card'
 
 const styles = StyleSheet.create({
@@ -53,6 +57,7 @@ const Tasks = () => {
   const dispatch = useDispatch()
   const data = useSelector(getProjectTask)
   const { isLoading } = useSelector(getProjectState)
+  const role = useSelector(getCurrentRole)
 
   const onCreate = useCallback(() => {
     NavigationService.navigate('Modal', { screen: 'CreateTask' })
@@ -87,6 +92,8 @@ const Tasks = () => {
     },
     [onTaskDetail],
   )
+
+  const convertData = useMemo(() => (data ? clone(data).reverse() : []), [data])
   return (
     <LayoutPrimary title="Task list">
       <Fragment>
@@ -99,14 +106,16 @@ const Tasks = () => {
             !data?.length && styles.container,
             styles.padding,
           ]}
-          data={data}
+          data={convertData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
           ListEmptyComponent={ListEmptyComponent}
           ItemSeparatorComponent={Separator}
         />
         <Loading isLoading={isLoading} />
-        <FloatingButton icon="calendar" onPress={onCreate} />
+        {role === 'admin' && (
+          <FloatingButton icon="calendar" onPress={onCreate} />
+        )}
       </Fragment>
     </LayoutPrimary>
   )

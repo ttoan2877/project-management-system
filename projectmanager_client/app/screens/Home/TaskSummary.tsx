@@ -4,6 +4,10 @@ import React from 'react'
 import { StyleSheet, ScrollView, View } from 'react-native'
 import AppStyles from 'config/styles'
 import Icon from 'components/Icon'
+import { useSelector } from 'react-redux'
+import { getProjectTask } from 'store/project/selectors'
+import { get } from 'lodash'
+import { Status } from 'models/api/task'
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +42,7 @@ const styles = StyleSheet.create({
 })
 
 const TaskSummary = () => {
+  const tasks = useSelector(getProjectTask)
   return (
     <View style={styles.container}>
       <ScrollView
@@ -51,7 +56,7 @@ const TaskSummary = () => {
             color={AppStyles.color.WHITE}
           />
           <Text style={styles.whiteText} type="h1">
-            28
+            {get(tasks, 'length', 0)}
           </Text>
           <Text type="h5" style={styles.whiteText}>
             All task
@@ -64,7 +69,11 @@ const TaskSummary = () => {
             color={AppStyles.color.ORANGE}
           />
           <Text style={styles.orangeText} type="h1">
-            12
+            {get(
+              (tasks || []).filter((x: any) => x?.status === Status.TODO),
+              'length',
+              0,
+            )}
           </Text>
           <Text type="h5" style={styles.orangeText}>
             To do
@@ -73,7 +82,11 @@ const TaskSummary = () => {
         <Touchable style={styles.btn}>
           <Icon name="calendar" size={16} color={AppStyles.color.PRIMARY} />
           <Text style={styles.primaryText} type="h1">
-            9
+            {get(
+              (tasks || []).filter((x: any) => x?.status === Status.DOING),
+              'length',
+              0,
+            )}
           </Text>
           <Text type="h5" style={styles.primaryText}>
             In progress
@@ -86,7 +99,11 @@ const TaskSummary = () => {
             color={AppStyles.color.GREEN}
           />
           <Text style={styles.greenText} type="h1">
-            5
+            {get(
+              (tasks || []).filter((x: any) => x?.status === Status.DONE),
+              'length',
+              0,
+            )}
           </Text>
           <Text type="h5" style={styles.greenText}>
             Completed
@@ -95,7 +112,11 @@ const TaskSummary = () => {
         <Touchable style={styles.btn}>
           <Icon name="calendar" size={16} color={AppStyles.color.ORANGE} />
           <Text style={styles.redText} type="h1">
-            22
+            {get(
+              (tasks || []).filter((x: any) => x?.status === Status.CLOSED),
+              'length',
+              0,
+            )}
           </Text>
           <Text type="h5" style={styles.redText}>
             Closed

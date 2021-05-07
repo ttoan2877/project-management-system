@@ -1,14 +1,14 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Text from 'components/Text'
 import { useSelector } from 'react-redux'
 import Card from 'components/Card'
-import { get } from 'lodash'
+import { get, clone } from 'lodash'
 import NavigationService from 'navigation/NavigationService'
-import { getMyTask } from 'store/project/selectors'
+import { getMyTaskState } from 'store/myTask/selectors'
 
 const RecentTask = () => {
-  const recentTasks = useSelector(getMyTask)
+  const { data } = useSelector(getMyTaskState)
 
   const onTaskDetail = useCallback((ID: number) => {
     NavigationService.navigate('Modal', {
@@ -33,12 +33,15 @@ const RecentTask = () => {
     [onTaskDetail],
   )
 
+  const convertData = useMemo(() => (data ? clone(data).reverse() : []), [data])
+
   return (
     <View style={styles.container}>
       <Text style={styles.text} type="h4">
         Recently assigned
       </Text>
-      {recentTasks.map((item: any, index: number) => renderItem(item, index))}
+      {convertData &&
+        convertData.map((item: any, index: number) => renderItem(item, index))}
     </View>
   )
 }
@@ -47,9 +50,9 @@ export default RecentTask
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
+    paddingHorizontal: 16,
   },
   text: {
-    marginLeft: 16,
+    marginBottom: 16,
   },
 })
