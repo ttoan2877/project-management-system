@@ -73,7 +73,7 @@ const Setting = () => {
           <Touchable
             style={[styles.btn, styles.green]}
             onPress={() =>
-              NavigationService.navigate('Modal', { screen: 'UpdateUser' })
+              NavigationService.navigate('Modal', { screen: 'UpdateInfo' })
             }>
             <Text light type="h5" uppercase>
               Update your information

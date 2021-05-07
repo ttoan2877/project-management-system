@@ -38,13 +38,17 @@ const HomeAction = () => {
   const goToTask = useCallback(() => {
     NavigationService.navigate('Task')
   }, [])
+
+  const goToProjectDetail = useCallback(() => {
+    NavigationService.navigate('Modal', { screen: 'UpdateProject' })
+  }, [])
   return (
     <View style={styles.container}>
       <Touchable onPress={goToTask} style={styles.btn}>
         <Text type="h5">My task</Text>
         <View style={[styles.dot, styles.primary]} />
       </Touchable>
-      <Touchable style={styles.btn}>
+      <Touchable onPress={goToProjectDetail} style={styles.btn}>
         <Text type="h5">Projects</Text>
         <View style={[styles.dot, styles.secondary]} />
       </Touchable>

@@ -4,6 +4,8 @@ export enum Status {
   DONE = 3,
   CLOSED = 4,
 }
+
+export const statusArr = [1, 2, 3, 4]
 export interface TaskRequest {
   ID?: number
   name: string

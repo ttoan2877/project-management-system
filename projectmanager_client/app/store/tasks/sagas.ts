@@ -74,6 +74,8 @@ function* assignMemberSaga({ payload: user_id }: ITask<number>) {
     const { ID: task_id } = yield select(getTaskData)
     yield call([TaskService, 'assignUser'], { task_id, user_id })
     yield put(taskSuccess(null))
+    yield put(fetchTask(task_id))
+    NavigationService.goBack()
   } catch (e) {
     yield put(taskFail(e))
   }
@@ -85,6 +87,8 @@ function* unassignMemberSaga({ payload: user_id }: ITask<number>) {
     const { ID: task_id } = yield select(getTaskData)
     yield call([TaskService, 'unassignUser'], { user_id, task_id })
     yield put(taskSuccess(null))
+    yield put(fetchTask(task_id))
+    NavigationService.goBack()
   } catch (e) {
     yield put(taskFail(e))
   }

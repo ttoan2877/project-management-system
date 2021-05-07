@@ -92,7 +92,7 @@ const Tasks = () => {
       <Fragment>
         <FlatList
           onRefresh={onRefresh}
-          refreshing={isLoading}
+          refreshing={false}
           showsVerticalScrollIndicator={false}
           style={styles.container}
           contentContainerStyle={[

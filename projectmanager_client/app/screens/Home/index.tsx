@@ -15,7 +15,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const { fullname, avatar } = useSelector(getAuthData)
   const { isLoading } = useSelector(getProjectState)
-  const { users, ID } = useSelector(getProjectData)
+  const { user_role, ID } = useSelector(getProjectData)
 
   const renderHeader = useCallback(
     () => <HomeHeader name={fullname} avatar={avatar} />,
@@ -34,7 +34,7 @@ const Home = () => {
         showsVerticalScrollIndicator={false}>
         <HomeAction />
         <TaskSummary />
-        <TeamMember users={users} />
+        <TeamMember users={user_role} />
         <RecentTask />
       </ScrollView>
     </LayoutPrimary>

@@ -8,13 +8,8 @@ import Text from 'components/Text'
 import AppStyles from 'config/styles'
 import FloatingButton from 'components/FloatingButton'
 import NavigationService from 'navigation/NavigationService'
-import { fetchProjectTask, fetchProjectMember } from 'store/project/actions'
-import {
-  getProjectTask,
-  getProjectState,
-  getProjectData,
-  getProjectMember,
-} from 'store/project/selectors'
+import { fetchProjectMember } from 'store/project/actions'
+import { getProjectState, getProjectMember } from 'store/project/selectors'
 import { get } from 'lodash'
 import Card from 'components/Card'
 
@@ -59,8 +54,8 @@ const Members = () => {
   const data = useSelector(getProjectMember)
   const { isLoading } = useSelector(getProjectState)
 
-  const onCreate = useCallback(() => {
-    NavigationService.navigate('Modal', { screen: 'CreateTask' })
+  const onAddMember = useCallback(() => {
+    NavigationService.navigate('Modal', { screen: 'SearchUser' })
   }, [])
 
   const onMemberDetail = useCallback((ID: number) => {
@@ -85,7 +80,7 @@ const Members = () => {
           name={get(item, 'fullname', '')}
           email={get(item, 'mail', '')}
           userAvatar={get(item, 'avatar', '')}
-          onPress={() => onMemberDetail(get(item, 'ID'))}
+          onPress={() => onMemberDetail(get(item, 'id'))}
         />
       )
     },
@@ -110,7 +105,7 @@ const Members = () => {
           ItemSeparatorComponent={Separator}
         />
         <Loading isLoading={isLoading} />
-        <FloatingButton icon="account-multiple" onPress={onCreate} />
+        <FloatingButton icon="account-multiple" onPress={onAddMember} />
       </Fragment>
     </LayoutPrimary>
   )
