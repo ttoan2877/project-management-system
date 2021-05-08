@@ -57,15 +57,21 @@ const Auth = () => {
     ),
     [],
   )
+  const renderFooter = useCallback(
+    () => (
+      <Touchable onPress={onSubmit} style={styles.submit}>
+        <Text light type="h5" uppercase>
+          Login
+        </Text>
+      </Touchable>
+    ),
+    [onSubmit],
+  )
   return (
-    <LayoutPrimary renderHeader={renderHeader}>
+    <LayoutPrimary renderHeader={renderHeader} renderFooter={renderFooter}>
       <Fragment>
         <Form data={data} onChangeData={setData} fields={FIELDS} />
-        <Touchable onPress={onSubmit} style={styles.submit}>
-          <Text light type="h5" uppercase>
-            Login
-          </Text>
-        </Touchable>
+
         <Loading isLoading={isLoading} />
       </Fragment>
     </LayoutPrimary>
